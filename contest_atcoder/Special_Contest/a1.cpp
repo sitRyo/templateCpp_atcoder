@@ -21,10 +21,42 @@ typedef long long ll;
 
 /* add vars here */
 
-/****************/
+ll c,d;
+ll ans = 0;
 
 /* add your algorithm here */
 
 int main() {
+  cin >> c >> d;
 
+  ll mmin = 140;
+  ll mmax = 170;
+
+  while (true) {
+    ll tmax = mmax;
+    ll tmin = mmin;
+
+    if (tmin > d) {
+      break;
+    }
+
+    if (c >= tmax) {
+      mmin *= 2;
+      mmax *= 2;
+      continue;
+    }
+
+    if (tmin < c) {
+      tmin = c;
+    }
+
+    if (tmax > d) {
+      tmax = d;
+    }
+    ans += tmax - tmin;
+    mmin *= 2;
+    mmax *= 2;
+  }
+
+  cout << ans << endl;
 }
