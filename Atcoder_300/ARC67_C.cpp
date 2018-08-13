@@ -17,13 +17,26 @@ typedef long long ll;
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define MAX 100
-#define MOD 1000000007
 
-/* add vars here */
+ll N;
+ll divs = 0;
+ll primes[1005];
+
+void gen_primes() {
+  rep_r(i,N,2) {
+
+    if (!(i % 2)) continue;
+
+    for (int j = 3; j < i / 2; ++i) {
+      if (!(i % j)) continue;
+    }
 
 
-/* add your algorithm here */
+  }
+}
 
 int main() {
+  cin >> N;
 
+  for (int i = 0; )
 }

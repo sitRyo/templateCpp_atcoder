@@ -21,24 +21,62 @@ typedef long long ll;
 
 /* add vars here */
 
-int n,a,b;
-ll v[51];
-ll ans = 0, mmax = 0;
-ll dp[51][51];
+// comb_table
+ll C[51][51];
 
 /* add your algorithm here */
 
-int main() {
-  cin >> n >> a >> b;
-  for (int i = 1; i <= n; ++i) cin >> v[i];
-
-  dp[0][0] = 0;
-
-  for (int )
-
-  for (int i = 1; i < b; ++i) {
-    for (int j = 0; j < i; ++j) {
-      dp[i+1][j+1] = max(dp[i][j] + v[i], dp[i][j+1]);
+void comb_table (int N) {
+  rep(i,N+1) {
+    rep(j,i+1) {
+      if (j == 0 || j == i)
+      C[i][j] = 1;
+      else
+      C[i][j] = (C[i-1][j-1] + C[i-1][j]); // 二項定理
     }
   }
+}
+
+int main() {
+  int N,A,B;
+  cin >> N >> A >> B;
+
+  const int NMAX = 50;
+  ll v[NMAX];
+
+  rep(i,N) cin >> v[i];
+
+  comb_table(N);
+  sort(v,v+N);
+  reverse(v,v+N);
+
+  double max_average = 0.0;
+  rep(i,A) max_average += v[i];
+  max_average /= A;
+
+  int a_th_val_num = 0, a_th_val_pos = 0;
+  rep(i,N) {
+    if (v[i] == v[A-1]) {
+      a_th_val_num++;
+      if (i < A) {
+        a_th_val_pos++;
+      }
+    }
+  }
+
+  cout << a_th_val_num << endl;
+  cout << a_th_val_pos << endl;
+
+  ll cnt = 0LL;
+  if (a_th_val_pos == A) {
+    for (a_th_val_pos = A; a_th_val_pos <= B; ++a_th_val_pos) {
+      cnt += C[a_th_val_num][a_th_val_pos];
+    }
+  } else {
+    cnt += C[a_th_val_num][a_th_val_pos];
+  }
+
+  cout.precision(20);
+  cout << fixed << max_average << endl;
+  cout << cnt << endl;
 }
