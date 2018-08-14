@@ -20,23 +20,48 @@ typedef long long ll;
 
 ll N;
 ll divs = 0;
-ll primes[1005];
+vector<int> v;
 
 void gen_primes() {
-  rep_r(i,N,2) {
-
-    if (!(i % 2)) continue;
-
-    for (int j = 3; j < i / 2; ++i) {
-      if (!(i % j)) continue;
+  v.push_back(2),v.push_back(3);
+  for (int i = 4; i < 1000; ++i) {
+    bool flag = true;
+    for (int j = 2; j < i; ++j) {
+      if (i % j == 0) {
+        flag = false;
+        break;
+      }
     }
-
-
+    if (flag) v.push_back(i);
   }
 }
 
 int main() {
   cin >> N;
+  gen_primes();
+  vector<int> d;
 
-  for (int i = 0; )
+  for (auto itr = v.begin(); itr != v.end(); itr++) {
+    int t = *itr;
+    int tt = 0;
+
+    while (t <= N) {
+      tt += N / t;
+      t *= *itr;
+    }
+
+    if (tt != 0){
+      d.push_back(++tt);
+    }
+  }
+
+  ll ans = 1;
+  const long MOD = 1000000007;
+
+  for (auto itr = d.begin(); itr != d.end(); ++itr) {
+    ans *= *itr;
+    ans %= MOD;
+  }
+
+  cout << ans << endl;
 }
