@@ -22,9 +22,22 @@ typedef long long ll;
 
 /* add vars here */
 
+ll x;
 
 /* add your algorithm here */
 
 int main() {
+  cin >> x;
 
+  ll ans = x / 11;
+  ans *= 2;
+  int a = x % 11;
+  if (a != 0) {
+    if (a > 6)
+      ans += 2;
+    else
+      ans += 1;
+  }
+
+  cout << ans << endl;
 }
