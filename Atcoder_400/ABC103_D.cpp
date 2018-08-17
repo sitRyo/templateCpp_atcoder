@@ -22,9 +22,33 @@ typedef long long ll;
 
 /* add vars here */
 
+ll n,m;
+vector< pair<ll,ll> > p;
 
 /* add your algorithm here */
 
 int main() {
+  cin >> n >> m;
+  rep(i,m) {
+    pair<ll, ll> pp;
+    cin >> pp.first >> pp.second;
+    p.pb(pp);
+  }
 
+  sort(
+    p.begin(),
+    p.end(),
+    [](const pair<ll, ll>& x, const pair<ll, ll>& y){return x.second < y.second;}
+  );
+
+  ll ans = 0;
+  ll x = -1;
+  rep(i,m) {
+    if (p[i].first >= x) {
+      ans++;
+      x = p[i].second;
+    }
+  }
+
+  cout << ans << endl;
 }
