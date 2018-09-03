@@ -30,9 +30,9 @@ void comb_table (int N) {
   rep(i,N+1) {
     rep(j,i+1) {
       if (j == 0 || j == i)
-      C[i][j] = 1;
+        C[i][j] = 1;
       else
-      C[i][j] = (C[i-1][j-1] + C[i-1][j]); // 二項定理
+        C[i][j] = (C[i-1][j-1] + C[i-1][j]); // 二項定理
     }
   }
 }
