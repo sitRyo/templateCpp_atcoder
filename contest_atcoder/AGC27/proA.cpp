@@ -19,11 +19,34 @@ typedef long long ll;
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
-#define sorti(x) sort(x.begin(), x.end())
-// 降順sort
-#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
+
+ll n,x;
 
 int main() {
+  cin >> n >> x;
+  vector<ll> a(n,0);
 
+  rep(i,n) {
+    cin >> a[i];
+  }
+
+  sort(a.begin(), a.end());
+
+
+  int cnt = 0, ans = 0;
+  while (x > 0 && cnt < n) {
+    if (a[cnt] <= x) {
+      if (cnt == n-1) {
+        if (a[cnt] == x) {
+          ans++;
+        }
+      } else {
+        ans++;
+        x -= a[cnt];
+      }
+    }
+    cnt++;
+  }
+
+  cout << ans << endl;
 }

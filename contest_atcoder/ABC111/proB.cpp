@@ -25,5 +25,13 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  int n;
+  cin >> n;
+  if (n % 111 == 0) {
+    cout << n << endl;
+    return 0;
+  }
 
+  int b = n / 111;
+  cout << 111 * (b + 1) << endl;
 }

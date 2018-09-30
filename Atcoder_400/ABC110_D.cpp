@@ -19,10 +19,6 @@ typedef long long ll;
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
-#define sorti(x) sort(x.begin(), x.end())
-// 降順sort
-#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
 

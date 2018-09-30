@@ -16,14 +16,13 @@ typedef long long ll;
 #define INF 10e10
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
-#define MAX 100
+#define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-
-/* add vars here */
-
-
-/* add your algorithm here */
+// 昇順sort
+#define sorti(x) sort(x.begin(), x.end())
+// 降順sort
+#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
 

@@ -11,7 +11,7 @@ ll factorial(ll n) {
   return n * factorial(n-1);
 }
 
-// 階乗を計算 (MODあり) ※問題のMODと合致しているか？
+// 階乗を計算 (MODあり) ※問題のMODと合致しているかチェック！
 ll factorial_mod(ll n) {
   ll ans = 1;
   for (ll i = n; i > 0; --i) {

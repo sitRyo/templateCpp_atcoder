@@ -25,5 +25,18 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  int n;
+  cin >> n;
 
+  vector<int> t;
+  while (n > 0) {
+    int b = n % 10;
+    if (b == 1) t.pb(9);
+    else t.pb(1);
+    n /= 10;
+  }
+
+  for (int i = 2; i >= 0; --i) cout << t[i];
+
+  END;
 }

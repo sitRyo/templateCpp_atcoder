@@ -19,11 +19,20 @@ typedef long long ll;
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
-#define sorti(x) sort(x.begin(), x.end())
-// 降順sort
-#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  ll n;
+  cin >> n;
 
+  ll t = n, cnt = 0;
+  int digit = 0, tmp = 0;
+  while (t > 0) {
+    if (t / 10 == 0) digit = t % 10;
+    tmp += t % 10;
+    t /= 10, cnt++;
+  }
+  int res = digit + (cnt-1) * 9;
+  if (tmp != res) res--;
+
+  cout << res << endl;
 }
