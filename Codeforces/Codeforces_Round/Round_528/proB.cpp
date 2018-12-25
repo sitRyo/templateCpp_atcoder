@@ -25,5 +25,10 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  int n,k;
+  cin >> n >> k;
 
+  for (int i = 1; i < k; ++i) {
+    
+  }
 }

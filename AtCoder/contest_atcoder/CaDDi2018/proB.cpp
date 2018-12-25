@@ -25,5 +25,12 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-
+  int n; cin >> n;
+  ll h,w; cin >> h >> w;
+  ll res = 0;
+  rep(i,n) {
+    ll x,y; cin >> x >> y;
+    if (x >= h and y >= w) res++;
+  }
+  cout << res << endl;
 }

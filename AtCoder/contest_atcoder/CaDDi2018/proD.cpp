@@ -9,6 +9,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <map>
 using namespace std;
 
 typedef long long ll;
@@ -25,5 +26,18 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-
+  int n;
+  cin >> n;
+  vector<ll> a(n);
+  ll al = 0;
+  map<int, int> mp;
+  bool flag = true;
+  rep(i,n) {
+    cin >> a[i];
+    if (a[i] % 2 == 1) {
+      flag = false;
+    }
+  }
+  printf(!flag ? "first" : "second");
+  END;
 }
