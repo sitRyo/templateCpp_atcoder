@@ -25,10 +25,15 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-  int n,k;
+  ll n,k,mmin = 10000000000;
   cin >> n >> k;
-
   for (int i = 1; i < k; ++i) {
-    
+    if (n % i == 0) {
+      ll t = n / i;
+      ll tmp = t * k + i;
+      mmin = min<ll>(mmin,tmp);
+    }
   }
+
+  cout << mmin << endl;
 }
