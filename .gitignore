@@ -8,3 +8,5 @@ pro_book
 a.out
 
 dir
+.vscode
+.DS_Store
