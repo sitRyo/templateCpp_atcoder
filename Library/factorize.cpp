@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 
+// 約数の計算
 template<typename T>
 map<T, long long> factorize(T x) {
   map<T, long long> res;
@@ -21,4 +22,17 @@ long long factorize_num(T x, T num) {
     x /= num;
   }
   return res;
+}
+
+// 約数の列挙
+template<typename T>
+set<T> div_count(T x) {
+  set<T> st;
+  for (int i = 1; i * i <= x; ++i) {
+    if (x % i == 0) {
+      st.insert(i);
+      st.insert(x/i);
+    }
+  }
+  return st;
 }
