@@ -13,27 +13,34 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e10
+#define INF 10e18 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
-// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-const int N=1000001;
-vector<pair<int, int> > edge(N), a;
-vector<bool> used(N,false);
+ll dp[101][100010];
 
 int main() {
-  int n,m; cin >> n >> m;
-  
-  rep(i,m) {
-    ll l,r,d; cin >> l >> r >> d;
-    a.pb({l,d});
+  ll n,wei; 
+  cin >> n >> wei;
+  vector<ll> w(n), v(n);
+
+  rep(i,n) {
+    scanf("%lld %lld", &w[i], &v[i]);
   }
 
+  // 品物
+  for (int i = 0; i < n; ++i) {
+    // 重さ
+    for (int j = 0; j <= wei; ++j) {
+      if (j < w[i]) dp[i+1][j] = dp[i][j];
+      else dp[i+1][j] = max(dp[i][j], dp[i][j - w[i]] + v[i]);
+    }
+  }
+
+  cout << dp[n][wei] << endl;
 }

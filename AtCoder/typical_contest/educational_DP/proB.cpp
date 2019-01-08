@@ -13,27 +13,36 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e10
+#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
-// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-const int N=1000001;
-vector<pair<int, int> > edge(N), a;
-vector<bool> used(N,false);
+ll dp[100010];
+int n,k;
 
 int main() {
-  int n,m; cin >> n >> m;
+  cin >> n >> k;
+  vector<ll> h(n);
+  rep(i,n) cin >> h[i];
+
+  dp[0] = 0;
   
-  rep(i,m) {
-    ll l,r,d; cin >> l >> r >> d;
-    a.pb({l,d});
+  // loop
+  for (int i = 1; i < n; ++i) {
+    dp[i] = INF;
+    for (int s = 1; s <= k; ++s) {
+      if (i - s >= 0) {
+        dp[i] = min(dp[i], dp[i - s] + abs(h[i] - h[i - s]));
+      } else {
+        break;
+      }
+    }
   }
 
+  cout << dp[n-1] << endl;
 }

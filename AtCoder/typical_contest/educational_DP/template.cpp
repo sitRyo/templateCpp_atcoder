@@ -13,27 +13,15 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e10
+#define INF 10e18 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
-// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-const int N=1000001;
-vector<pair<int, int> > edge(N), a;
-vector<bool> used(N,false);
-
 int main() {
-  int n,m; cin >> n >> m;
-  
-  rep(i,m) {
-    ll l,r,d; cin >> l >> r >> d;
-    a.pb({l,d});
-  }
 
 }
