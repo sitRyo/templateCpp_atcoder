@@ -23,5 +23,45 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  ll n; cin >> n;
+  vector<ll> a(n), b(n), diff(n);
+  ll suma = 0, sumb = 0;
+  rep(i,n) {
+    cin >> a[i];
+    suma += a[i];
+  }
+  rep(i,n) {
+    cin >> b[i];
+    sumb += b[i];
+  }
 
+  if (suma < sumb) {
+    cout << -1 << endl;
+    return 0;
+  }
+
+  ll remain = suma - sumb;
+
+  for (int i = 0; i < n; ++i) {
+    diff[i] = a[i] - b[i];
+  }
+
+  ll ans = 0;
+  sorti(diff);
+  for (int i = 0; i < n; ++i) {
+  
+    if (diff[i] < 0) {
+      ans++;
+      continue;
+    }
+
+    if (remain - diff[i] < 0) {
+      ans += n - i;
+      break;
+    } else {
+      remain -= diff[i];
+    }
+  }
+
+  cout << ans << endl;
 }

@@ -13,7 +13,7 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e18 // 4倍しても(4回足しても)long longを溢れない
+#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
@@ -22,32 +22,38 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-struct edge { ll to, cost; };
+ll n,s;
 
-vector<vector<ll> > G;
-vector<ll> memo;
-
-ll dp(ll i) {
-  if (memo[i] != -1) return memo[i];
+ll f(ll b, ll n) {
   ll res = 0;
-  for (auto v : G[i]) res = max(res, dp(v) + 1);
-  return memo[i] = res;
+  while (n > 0) {
+    res += n % b;
+    n /= b;
+  }
+  return res;
 }
 
 int main() {
-  int n,m;
-  cin >> n >> m;
-  vector<ll> x(m), y(m);
-  rep(i,m) {
-    cin >> x[i] >> y[i];
+  cin >> n >> s;
+
+  if (n == s) {
+    cout << n + 1 << endl;
+    return 0;
   }
-  
-  G.resize(n+1);
-  rep(i,m) G[x[i]].pb(y[i]);
 
-  memo.resize(n+1, -1);
-  ll ans = 0;
-  rep_r(i,n+1,1) ans = max(dp(i), ans);
+  for (ll b = 2; b * b <= n; ++b) {
+    if (f(b,n) == s) {
+      cout << b << endl;
+      return 0;
+    }
+  }
 
-  cout << ans << endl;
+  ll ans = INF;
+  for (ll p = 1; p * p <= n; ++p) {
+    ll b = (n - s) / p + 1;
+    if (b < 2) continue;
+    if (f(b,n) == s) ans = min(ans,b);
+  }
+
+  cout << (ans == INF ? -1 : ans) << endl;
 }

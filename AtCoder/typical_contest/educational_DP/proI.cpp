@@ -22,32 +22,23 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-struct edge { ll to, cost; };
-
-vector<vector<ll> > G;
-vector<ll> memo;
-
-ll dp(ll i) {
-  if (memo[i] != -1) return memo[i];
-  ll res = 0;
-  for (auto v : G[i]) res = max(res, dp(v) + 1);
-  return memo[i] = res;
-}
-
 int main() {
-  int n,m;
-  cin >> n >> m;
-  vector<ll> x(m), y(m);
-  rep(i,m) {
-    cin >> x[i] >> y[i];
+  int n; cin >> n;
+  vector<double> p(n+1);
+  vector<vector<double> > dp(n+1, vector<double>(n+1,0));
+  rep(i,n) cin >> p[i+1];
+  dp[0][0] = 1.0;
+
+  for (int i = 1; i <= n; ++i) {
+    double pi = p[i];
+    rep(j,n) {
+      dp[i][j] += dp[i-1][j] * (1.0 - pi);
+      dp[i][j+1] += dp[i-1][j] * pi;
+    }
   }
-  
-  G.resize(n+1);
-  rep(i,m) G[x[i]].pb(y[i]);
 
-  memo.resize(n+1, -1);
-  ll ans = 0;
-  rep_r(i,n+1,1) ans = max(dp(i), ans);
-
-  cout << ans << endl;
+  double ans = 0;
+  int h = (n+1) / 2;
+  for (int i = h; i <= n; ++i) ans += dp[n][i];
+  printf("%.9f\n", ans);
 }

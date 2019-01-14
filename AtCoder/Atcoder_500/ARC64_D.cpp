@@ -23,5 +23,23 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
+  string s;
+  cin >> s;
+  int len = s.length();
 
+  if (len % 2 == 0) {
+    // len : even
+    if (s.front() == s.back()) {
+      cout << "First" << endl;
+    } else {
+      cout << "Second" << endl;
+    }
+  } else {
+    // len : odd
+    if (s.front() == s.back()) {
+      cout << "Second" << endl;
+    } else {
+      cout << "First" << endl;
+    }
+  }
 }

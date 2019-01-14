@@ -13,15 +13,13 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e10
+#define INF 10e17
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
-// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 /* ダイクストラ法, vector gにedgeを入れます */
@@ -52,7 +50,27 @@ void dijkstra(int s) {
     }
   }
 }
-
 int main() {
+  int n,m;
+  cin >> n >> m;
+  rep(i,m) {
+    ll a,b;
+    cin >> a >> b;
+    a--,b--;
+    edge t = {a,1};
+    edge tt = {b,1};
+    g[a].pb(t);
+    g[b].pb(tt);
+  }
 
+  dijkstra(0);
+
+  for (int i = 0; i < n; ++i) {
+    if (d[i] == 0) {
+      cout << -1 << endl;
+      return 0;
+    }
+  }
+
+  cout << d[n-1]  << endl;
 }

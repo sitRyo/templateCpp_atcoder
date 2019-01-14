@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-// 約数の計算
+// 約数の計算 + 素因数を求める
 template<typename T>
 map<T, long long> factorize(T x) {
   map<T, long long> res;

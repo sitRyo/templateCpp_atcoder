@@ -22,32 +22,30 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-struct edge { ll to, cost; };
-
-vector<vector<ll> > G;
-vector<ll> memo;
-
-ll dp(ll i) {
-  if (memo[i] != -1) return memo[i];
-  ll res = 0;
-  for (auto v : G[i]) res = max(res, dp(v) + 1);
-  return memo[i] = res;
-}
-
 int main() {
-  int n,m;
-  cin >> n >> m;
-  vector<ll> x(m), y(m);
-  rep(i,m) {
-    cin >> x[i] >> y[i];
+  int h,w;
+  cin >> h >> w;
+  string s[h+1];
+  vector<vector<ll> > dp(h+1,vector<ll>(w+1,0));
+
+  rep(i,h) {
+    cin >> s[i];
   }
   
-  G.resize(n+1);
-  rep(i,m) G[x[i]].pb(y[i]);
 
-  memo.resize(n+1, -1);
-  ll ans = 0;
-  rep_r(i,n+1,1) ans = max(dp(i), ans);
+  dp[0][0] = 1;
+  rep(i,h) {
+    rep(j,w) {
+      if (i != h-1 and s[i+1][j] != '#') {
+        dp[i+1][j] += dp[i][j];
+        dp[i+1][j] %= MOD;
+      }
+      if (j != w-1 and s[i][j+1] != '#') {
+        dp[i][j+1] += dp[i][j];
+        dp[i][j+1] %= MOD;
+      }
+    }
+  }
 
-  cout << ans << endl;
+  cout << dp[h-1][w-1] << endl;
 }

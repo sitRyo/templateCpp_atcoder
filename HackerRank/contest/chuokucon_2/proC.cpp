@@ -9,11 +9,12 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <map>
 using namespace std;
 
 typedef long long ll;
 
-#define INF 10e18 // 4倍しても(4回足しても)long longを溢れない
+#define INF 10e17
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
@@ -22,32 +23,25 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-struct edge { ll to, cost; };
 
-vector<vector<ll> > G;
-vector<ll> memo;
-
-ll dp(ll i) {
-  if (memo[i] != -1) return memo[i];
-  ll res = 0;
-  for (auto v : G[i]) res = max(res, dp(v) + 1);
-  return memo[i] = res;
+template<typename T>
+map<T, long long> factorize(T x) {
+  map<T, long long> res;
+  for (long long i = 2; i * i <= x; ++i) {
+    while (x % i == 0) {
+      x /= i;
+      res[i] += 1;
+    }
+  }
+  if (x != 1) res[x]++;
+  return res;
 }
 
 int main() {
-  int n,m;
-  cin >> n >> m;
-  vector<ll> x(m), y(m);
-  rep(i,m) {
-    cin >> x[i] >> y[i];
-  }
-  
-  G.resize(n+1);
-  rep(i,m) G[x[i]].pb(y[i]);
-
-  memo.resize(n+1, -1);
+  ll n; cin >> n;
   ll ans = 0;
-  rep_r(i,n+1,1) ans = max(dp(i), ans);
-
+  for (auto itr : factorize(n)) {
+    ans = itr.first;
+  }
   cout << ans << endl;
 }
