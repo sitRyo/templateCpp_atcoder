@@ -9,7 +9,6 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
-#include <map>
 using namespace std;
 
 typedef long long ll;
@@ -23,23 +22,40 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-typedef pair<ll,ll> pL;
-const int MAX = 210000;
-
-ll fac[MAX], finv[MAX], inv[MAX];
-
-pL prime_factorize(ll n) {
-  vector<pL> res;
-  for (ll p = 2; p * p <= n; ++p) {
-    if (n % p != 0) continue;
-    int num = 0;
-    while (n % p == 0) {
-      ++num;
-      n /= p;
-    }
-    res.pb(make_pair(p, num));
-  }
-  if (n != 1) res.pb(make_pair(n,1));
+void mul(ll& a, ll& b) {
+  a = a * b % MOD;
 }
 
+int main() {
+  int n,m;
+  cin >> n >> m;
+  vector<ll> a(n), b(m);
+  rep(i,n) cin >> a[i];
+  rep(i,m) cin >> b[i];
 
+  sortd(a);
+  sortd(b);
+
+  a.pb(-1);
+  b.pb(-1);
+
+  ll apt = 0, bpt = 0, num = n * m;
+  ll ans = 1;
+  while (num > 0) {
+    if (a[apt] == num and b[bpt] == num) {
+      apt++;
+      bpt++;
+    } else if (a[apt] == num) {
+      apt++;
+      mul(ans, bpt);
+    } else if (b[bpt] == num) {
+      bpt++;
+      mul(ans, apt);
+    } else {
+      ll tmp = apt * bpt - (n * m - num);
+      mul(ans, tmp);
+    }
+    num -= 1;
+  }
+  cout << ans << endl;
+}

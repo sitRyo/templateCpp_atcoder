@@ -9,7 +9,6 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
-#include <map>
 using namespace std;
 
 typedef long long ll;
@@ -23,23 +22,23 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-typedef pair<ll,ll> pL;
-const int MAX = 210000;
+int main() {
+  ll n,a,b;
+  cin >> n >> a >> b;
+  vector<ll> x(n);
+  rep(i,n) cin >> x[i];
 
-ll fac[MAX], finv[MAX], inv[MAX];
-
-pL prime_factorize(ll n) {
-  vector<pL> res;
-  for (ll p = 2; p * p <= n; ++p) {
-    if (n % p != 0) continue;
-    int num = 0;
-    while (n % p == 0) {
-      ++num;
-      n /= p;
+  ll ans = 0;
+  for (int i = 0; i < n-1; ++i) {
+    ll d = x[i+1] - x[i];
+    ll costA = d * a;
+    if (costA < b) {
+      ans += costA;
+    } else {
+      ans += b;
     }
-    res.pb(make_pair(p, num));
   }
-  if (n != 1) res.pb(make_pair(n,1));
+
+  cout << ans << endl;
+  
 }
-
-

@@ -23,23 +23,25 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-typedef pair<ll,ll> pL;
-const int MAX = 210000;
-
-ll fac[MAX], finv[MAX], inv[MAX];
-
-pL prime_factorize(ll n) {
-  vector<pL> res;
-  for (ll p = 2; p * p <= n; ++p) {
-    if (n % p != 0) continue;
-    int num = 0;
-    while (n % p == 0) {
-      ++num;
-      n /= p;
+int main() {
+  string a,b,c;
+  int n;
+  cin >> n;
+  cin >> a;
+  cin >> b;
+  cin >> c;
+  ll ans = 0;
+  for (int i = 0; i < n; ++i) {
+    map<char, int> mp;
+    mp[a[i]] += 1;
+    mp[b[i]] += 1;
+    mp[c[i]] += 1;
+    vector<int> vec;
+    for (auto itr : mp) {
+      vec.push_back(itr.second);
     }
-    res.pb(make_pair(p, num));
+    sortd(vec);
+    ans += 3 - vec[0];
   }
-  if (n != 1) res.pb(make_pair(n,1));
+  cout << ans << endl;
 }
-
-

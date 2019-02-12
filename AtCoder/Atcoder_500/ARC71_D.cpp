@@ -9,7 +9,6 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
-#include <map>
 using namespace std;
 
 typedef long long ll;
@@ -23,23 +22,34 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-typedef pair<ll,ll> pL;
-const int MAX = 210000;
-
-ll fac[MAX], finv[MAX], inv[MAX];
-
-pL prime_factorize(ll n) {
-  vector<pL> res;
-  for (ll p = 2; p * p <= n; ++p) {
-    if (n % p != 0) continue;
-    int num = 0;
-    while (n % p == 0) {
-      ++num;
-      n /= p;
-    }
-    res.pb(make_pair(p, num));
+ll sums(vector<ll> vec) {
+  ll limit = vec.size();
+  ll sumvec = 0;
+  for (int k = 1; k <= limit; ++k) {
+    sumvec += (k - 1) * vec[k-1] - (limit - k) * vec[k-1];
+    sumvec %= MOD;
   }
-  if (n != 1) res.pb(make_pair(n,1));
+
+  return (sumvec + MOD);
 }
 
+int main() {
+  ll n,m;
+  vector<ll> x, y;
 
+  cin >> n >> m;
+
+  x = vector<ll>(n), y = vector<ll>(m);
+
+  rep(i,n) {
+    scanf("%lld", &x[i]);
+  }
+  rep(i,m) {
+    scanf("%lld", &y[i]);
+  }
+  
+  ll sumx = sums(x);
+  ll sumy = sums(y);
+
+  cout << (sumx * sumy) % MOD << endl;
+}
