@@ -8,6 +8,7 @@
 #include <cstring>
 #include <numeric>
 #include <cstdlib>
+#include <map>
 #include <cmath>
 using namespace std;
 
@@ -22,33 +23,49 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-int main() {
-  string s;
-  ll ans = 0;
+vector<int> edge[100002];
+int visited[100002], wei[100002];
+map<pair<int,int>, bool> mp;
 
-  cin >> s;
-  vector<bool> bits(s.size());
 
-  rep(i,s.size()) {
-    bits[i] = (s[i] == '0') ? false : true;
-  }
-
-  int l = 0, r = s.size(), tmp = 0;
-  bool now = bits[0];
-
-  for (int i = 0; i < r; ++i) {
-    if (bits[i] == now) {
-      tmp += 1;
-    } else {
-      tmp += 1;
-      ans = max<ll>(tmp, ans);
-      tmp = 1;
-      now = bits[i];
+int dfs(int now) {
+  visited[now] = true;
+  for (auto itr : edge[now]) {
+    if (!visited[itr]) {
+      wei[now] += dfs(itr);
+      mp[make_pair(itr,now)] = true;
+      mp[make_pair(now,itr)] = true;
     }
   }
 
-  if (tmp > 0) {
-    ans = max<ll>(tmp,ans);
+  return wei[now] + 1;
+}
+
+
+int main() {
+  ll ans = 0;
+  
+  int n,m;
+  cin >> n >> m;
+
+  vector<pair<int,int> > data(m);
+
+  rep(i,m) {
+    ll k,j;
+    cin >> k >> j;
+
+    edge[k].push_back(j);
+    edge[j].push_back(k);
+
+    data[i] = make_pair(j,k);
   }
-  cout << ans << endl;
+
+
+  dfs(1);
+
+  for (auto itr : data) {
+    if (!mp[itr]) {
+      
+    }
+  }
 }

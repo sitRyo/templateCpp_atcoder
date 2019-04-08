@@ -9,11 +9,12 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <stack>
 using namespace std;
 
 typedef long long ll;
 
-#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
+#define INF 10e8 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
@@ -22,21 +23,23 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
+int dp[101][101][101];
+int able[101];
+string S;
 
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
-    }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
+int rec(int idx, int depth, int last) {
+  if (depth < 0) return INF;
+
+  if (idx == S.size()) {
+    if (depth == 0) return (last - idx);
+    else return INF;
   }
-  cout << ans << endl;
+
+  
+}
+
+int main() {
+  cin >> S;
+  memset(dp, -1, sizeof(dp));
+  
 }

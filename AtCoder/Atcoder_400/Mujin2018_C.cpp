@@ -1,92 +1,128 @@
-#include <iostream>
-#include <cstdio>
-#include <algorithm>
-#include <vector>
-#include <functional>
-#include <queue>
-#include <string>
-#include <cstring>
-#include <numeric>
-#include <cstdlib>
-#include <cmath>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-typedef long long ll;
+#define llong long long int
+#define ldouble long double
+#define fore(i, x) for (auto &i : n)
+#define rep(i, n) for (int i = 0; i < n; ++i)
+#define repr(i, n) for (int i = n; i >= 0; --i)
+#define stl_rep(itr, x) for (auto itr = x.begin(); itr != x.end(); ++itr)
+#define all(x) x.begin(), x.end()
+#define allr(x) x.rbegin(), x.rend()
 
-#define INF 10e10
-#define rep(i,n) for(int i=0; i<n; i++)
-#define rep_r(i,n,m) for(int i=m; i<n; i++)
-#define END cout << endl
-#define MOD 1000000007
-#define pb push_back
-#define debug(x) cout << (x) << endl;
-#define sorti(x) sort(x.begin(), x.end())
-#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
+const static int mod = 1000000000 + 7;
+const static int inf = INT_MAX / 2;
+const static llong INF = LLONG_MAX / 2;
+const static double eps = 1e-10;
+const static int dx[] = {1, 0, -1, 0};
+const static int dy[] = {0, 1, 0, -1};
 
-int main() {
-  int n,m;
-  cin >> n >> m;
+template<class T> bool chmax(T &a, const T &b) { if (a < b) { a = b; return 1;} return 0;}
+template<class T> bool chmin(T &a, const T &b) { if (b < a) { a = b; return 1;} return 0;}
 
-  char f[n+2][m+2];
-  int up[n+2][m+2], left[n+2][m+2], right[n+2][m+2], down[n+2][m+2];
+char field[2001][2001];
+int left_cnt[2001][2001], right_cnt[2001][2001], up_cnt[2001][2001], down_cnt[2001][2001];
 
-  rep(i,n+2)rep(j,m+2) {
-    f[i][j] = '#';
-    up[i][j] = -1;
-    left[i][j] = -1;
-    right[i][j] = -1;
-    down[i][j] = -1;
-  }
+signed main (int argc, char *argv[]) {
+    cin.tie(0);
+    ios::sync_with_stdio(false);
 
-  rep(i,n)rep(j,m) scanf("%c", &f[i+1][j+1]);
+    int n, m;
+    cin >> n >> m;
+    rep(i, n) {
+        string S;
+        cin >> S;
+        rep(j, m) {
+            field[i][j] = S[j];
+        }
+    }
 
-  for (int i = 0; i <= n+2; ++i) {
-    for (int j = 0; j <= m+2; ++j) {
-      if (f[i][j] == '.') {
-        up[i][j] += up[i-1][j] + 1;
-        left[i][j] += left[i][j-1] + 1;
+    for (int i = 0; i < n; ++i) {
+        int cnt1 = 0;
+        for (int j = 0; j < m; ++j) {
+            if (field[i][j] == '.') {
+                left_cnt[i][j] = cnt1;
+                ++cnt1;
+            } else {
+                cnt1 = 0;
+            }
+        }
+
+        int cnt2 = 0;
+        for (int j = m - 1; j >= 0; --j) {
+            if (field[i][j] == '.') {
+                right_cnt[i][j] = cnt2;
+                ++cnt2;
+            } else {
+                cnt2 = 0;
+            }
+        }
+    }
+
+    cout << "left" << endl;
+    for (int i = 0; i < n; ++i) {
+      cout << endl;
+      for (int j = 0; j < m; ++j) {
+        cout << left_cnt[i][j] << " ";
       }
     }
-  }
 
-  for (int i = n+1; i >= 0; --i) {
-    for (int j = m+1; j >= 0; --j) {
-      if (f[i][j] == '.') {
-        down[i][j] = down[i+1][j] + 1;
-        right[i][j] = right[i][j+1] + 1;
+    cout << endl;
+    cout << "right" << endl;
+    for (int i = 0; i < n; ++i) {
+      cout << endl;
+      for (int j = 0; j < m; ++j) {
+        cout << right_cnt[i][j] << " ";
       }
     }
-  }
 
-  cout << "up" << endl;
-  for (int i = 0; i < n+2; ++i) {
-    for (int j = 0; j < m+2; ++j) {
-      cout << up[i][j] << " ";
-    }
-    END;
-  }
+    for (int j = 0; j < m; ++j) {
+        int cnt1 = 0;
+        for (int i = 0; i < n; ++i) {
+            if (field[i][j] == '.') {
+                up_cnt[i][j] = cnt1;
+                ++cnt1;
+            } else {
+                cnt1 = 0;
+            }
+        }
 
-  cout << "down" << endl;
-  for (int i = 0; i < n+2; --i) {
-    for (int j = 0; j < m+2; --j) {
-      cout << down[i][j] << " ";
+        int cnt2 = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            if (field[i][j] == '.') {
+                down_cnt[i][j] = cnt2;
+                ++cnt2;
+            } else {
+                cnt2 = 0;
+            }
+        }
     }
-    END;
-  }
+    cout << "up" << endl;
+    for (int i = 0; i < n; ++i) {
+      cout << endl;
+      for (int j = 0; j < m; ++j) {
+        cout << up_cnt[i][j] << " ";
+      }
+    }
+    cout << "down" << endl;
+    for (int i = 0; i < n; ++i) {
+      cout << endl;
+      for (int j = 0; j < m; ++j) {
+        cout << down_cnt[i][j] << " ";
+      }
+    }
 
-  cout << "left" << endl;
-  for (int i = 0; i < n+2; ++i) {
-    for (int j = 0; j < m+2; ++j) {
-      cout << left[i][j] << " ";
+    llong res = 0;
+    rep(i, n) {
+        rep(j, m) {
+            if (field[i][j] == '.') {
+                res += (left_cnt[i][j] + right_cnt[i][j]) * (up_cnt[i][j] + down_cnt[i][j]);
+            }
+        }
     }
-    END;
-  }
 
-  cout << "right" << endl;
-  for (int i = 0; i < n+2; ++i) {
-    for (int j = 0; j < m+2; ++j) {
-      cout << right[i][j] << " ";
-    }
-    END;
-  }
+    cout << res << endl;
+
+    return 0;
 }

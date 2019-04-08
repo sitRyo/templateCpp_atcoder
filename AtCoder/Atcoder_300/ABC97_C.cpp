@@ -27,10 +27,30 @@ typedef long long ll;
 int main() {
   int n;
   cin >> n;
-  vector<int> t(n), a(n);
-  rep(i, n) {
-    cin >> t[i] >> a[i];
-  }
 
-  
+  vector<int> num(4);
+  for (int i = 0; i < 4; ++i) {
+    num[i] = n % 10;
+    n /= 10;
+  }
+  reverse(num.begin(), num.end());
+  for (int i = 0; i < (1 << 3); ++i) {
+    char op[3];
+    int total = num[0];
+    for (int j = 0; j < 3; ++j) {
+      int bit = (i >> j) & 1;
+      if (bit) {
+        op[j] = '+';
+        total += num[j + 1];
+      } else {
+        op[j] = '-';
+        total -= num[j + 1];
+      }
+    }
+    // cout << total << endl;
+    if (total == 7) {
+      cout << num[0] << op[0] << num[1] << op[1] << num[2] << op[2] << num[3] << "=7" << endl;
+      return 0;
+    }
+  }
 }

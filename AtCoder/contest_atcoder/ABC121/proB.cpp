@@ -23,20 +23,26 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
+  int n,m,c;
+  cin >> n >> m >> c;
+  vector<int> b(m);
+  rep(i,m) cin >> b[i];
 
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
+  ll res = 0;
+
+  rep(i,n) {
+    vector<int> a(m);
+    ll ans = 0;
+    rep(j,m) {
+      ll tmp;
+      cin >> tmp;
+      ans += tmp * b[j];
     }
-    if (total >= a and total <= b) {
-      ans += i;
+
+    if (ans + c > 0) {
+      res += 1;
     }
-    total = 0;
   }
-  cout << ans << endl;
+
+  cout << res << endl;
 }

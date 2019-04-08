@@ -23,20 +23,11 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
-
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
-    }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
-  }
-  cout << ans << endl;
+  int n;
+  cin >> n;
+  // 3文字のときの置けるパターン
+  const int times = n - 3 + 1;
+  ll ans = 0;
+  // 交換をしない AGCの並びはしない
+  ans += 
 }

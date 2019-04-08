@@ -22,21 +22,33 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
+// s[j] == 'A' or s[j] == 'C' or s[j] == 'G' or s[j] == 'T'
 
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
+int main() {
+  int n,q;
+  cin >> n >> q;
+
+  string s;
+  cin >> s;
+
+  vector<int> sum(n+1);
+  sum[0] = 0;
+
+
+  for (int i = 1; i < n; ++i) {
+    if (s[i-1] == 'A' and s[i] == 'C') {
+      sum[i+1] += sum[i] + 1;
+    } else {
+      sum[i+1] = sum[i];
     }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
   }
-  cout << ans << endl;
+  /*
+  for (auto itr : sum) cout << itr << " ";
+  END;*/
+
+  for (int i = 0; i < q; ++i) {
+    int l,r; 
+    cin >> l >> r;
+    cout << sum[r] - sum[l] << endl;
+  }
 }

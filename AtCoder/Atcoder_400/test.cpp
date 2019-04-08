@@ -1,31 +1,33 @@
 #include <iostream>
-#include <cstdio>
-#include <algorithm>
-#include <vector>
-#include <functional>
-#include <queue>
 #include <string>
+#include <vector>
 #include <cstring>
-#include <numeric>
-#include <cstdlib>
-#include <cmath>
-#include <set>
 using namespace std;
 
-typedef long long ll;
-
-#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
-#define rep(i,n) for(int i=0; i<n; i++)
-#define rep_r(i,n,m) for(int i=m; i<n; i++)
-#define END cout << endl
-#define MOD 1000000007
-#define pb push_back
-#define sorti(x) sort(x.begin(), x.end())
-#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
-
 int main() {
-  int n;
-  set<string> st;
-
+  vector<string> s(3);
+  for (int i = 0; i < 3; ++i) {
+    string t;
+    cin >> t;
+    s[i] = t;
+  }
+/*
+  cout << s[0].size() << endl;
+  cout << s[1].size() << endl;
+  cout << s[2].size() << endl;
+*/
+  char t = 'a';
   
+  vector<int> cnt(3,0);
+  while (true) {
+    int c = t - 'a';
+	  int target = cnt[c];
+    if (target >= s[c].size()) {
+      cout << (char)toupper(t) << endl;
+      return 0;
+    }
+    char tt = s[c][target];
+    cnt[c] += 1;
+    t = tt;
+  }
 }

@@ -13,30 +13,25 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
+#define INF 10e10
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
+// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
+// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
-
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
-    }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
+  string s;
+  cin >> s;
+  int a = 0, b = 0;
+  for (auto itr : s) {
+    if (itr == '1') a++;
+    else b++;
   }
-  cout << ans << endl;
+
+  cout << s.size() - abs(a - b) << endl;
 }

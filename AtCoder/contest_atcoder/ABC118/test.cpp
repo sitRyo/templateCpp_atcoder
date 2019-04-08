@@ -9,6 +9,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <set>
 using namespace std;
 
 typedef long long ll;
@@ -22,21 +23,22 @@ typedef long long ll;
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
-int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
-
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
+// 約数の列挙
+template<typename T>
+set<T> div_count(T x) {
+  set<T> st;
+  for (int i = 1; i * i <= x; ++i) {
+    if (x % i == 0) {
+      st.insert(i);
+      st.insert(x/i);
     }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
   }
-  cout << ans << endl;
+  return st;
+}
+int main() {
+  ll mmax = -1;
+  for (int i = 1; i <= 1000000000; ++i) {
+    mmax = max<ll>(mmax, div_count(i).size());
+  }
+  cout << mmax << endl;
 }

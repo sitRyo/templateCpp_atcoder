@@ -9,6 +9,7 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <map>
 using namespace std;
 
 typedef long long ll;
@@ -23,20 +24,30 @@ typedef long long ll;
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
 
 int main() {
-  int n,a,b;
-  cin >> n >> a >> b;
-  int total = 0, ans = 0;
+  ll n;
+  cin >> n;
+  vector<ll> c(n), m(n,0);
+  vector<ll> v[n];
+  map<ll,ll> mp;
 
-  for (int i = 1; i <=n; ++i) {
-    int cpy = i;
-    while (cpy > 0) {
-      total += cpy % 10;
-      cpy /= 10;
-    }
-    if (total >= a and total <= b) {
-      ans += i;
-    }
-    total = 0;
+  rep(i,n) {
+    scanf("%lld", c[i]);
   }
-  cout << ans << endl;
+
+  for (int i = 0; i < n; ++i) {
+    if (v[i].empty()) {
+      v[i].push_back(c[i]);
+    } else if (v[i].back() != i - 1) {
+      v[i].push_back(c[i]);
+    }
+  }
+
+  ll ans = 1;
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < v[i].size()-1; ++j) {
+      if (m[v[i][j]] == 0 or m[v[i][j]] == 0) {
+        
+      }
+    }
+  }
 }
