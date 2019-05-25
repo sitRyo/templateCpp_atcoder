@@ -13,49 +13,41 @@ using namespace std;
 
 typedef long long ll;
 
-#define INF 10e10
+#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
-#define MAX 100
+#define END cout << endl
 #define MOD 1000000007
 #define pb push_back
+#define sorti(x) sort(x.begin(), x.end())
+#define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
+#define debug(x) std::cerr << (x) << std::endl;
+#define roll(x) for (auto itr : x) { debug(itr); }
 
-/* add vars here */
+template <class T> inline void chmax(T &ans, T t) { if (t > ans) ans = t;}
+template <class T> inline void chmin(T &ans, T t) { if (t < ans) ans = t;}
 
-vector<ll> t;
-ll T,N;
-
-/* add your algorithm here */
+// 最大公約数を求める(ユークリッドの互除法).
+long long gcd (long long x, long long y) {
+  if (y > x) swap(x,y);
+  if (y == 0) return x;
+  return gcd(x%y,y);
+}
 
 int main() {
-  cin >> N >> T;
-  ll tt;
-  rep(i,N) {
-    cin >> tt;
-    t.pb(tt);
-  }
+  ll n, t;
+  cin >> n >> t;
 
+  vector<ll> T(n);
+  rep(i,n) cin >> T[i];
+
+  T.push_back(INF);
   ll ans = 0;
-  ll tmp = t[0];
-
-  if (N == 1) {
-    ans += T;
-    cout << ans << endl;
-    return 0;
-  }
-
-  for (int i = 1; i < N; ++i) {
-    bool flag = false;
-    if (t[i-1] + T < t[i]) {
-      ans += t[i-1] + T - tmp;
-      tmp = t[i];
-      flag = true;
-    }
-
-    if (i == N-1 && flag) {
-      ans += T;
-    } else if (i == N-1 && !flag) {
-      ans += t[i] + T - tmp;
+  for (int i = 0; i < n; ++i) {
+    if (T[i] + t >= T[i + 1]) {
+      ans += T[i+1] - T[i];
+    } else {
+      ans += t;
     }
   }
 

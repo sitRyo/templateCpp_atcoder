@@ -9,6 +9,9 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
+#include <map>
+#include <unordered_map>
+#include <set>
 using namespace std;
 
 typedef long long ll;
@@ -21,6 +24,11 @@ typedef long long ll;
 #define pb push_back
 #define sorti(x) sort(x.begin(), x.end())
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
+#define debug(x) std::cerr << (x) << std::endl;
+#define roll(x) for (auto itr : x) { debug(itr); }
+
+template <class T> inline void chmax(T &ans, T t) { if (t > ans) ans = t;}
+template <class T> inline void chmin(T &ans, T t) { if (t < ans) ans = t;}
 
 int main() {
 

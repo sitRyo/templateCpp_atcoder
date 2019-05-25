@@ -28,10 +28,23 @@ int main() {
   int t;
   cin >> t;
  
-  vector<int> a(t);
+  vector<int> a(t+1000);
   rep(i,t) {
     cin >> a[i];
   }
-
+  ll dp[600][1000];
+  for (int i = 0; i < 600; ++i) for (int j = 0; j < 1000; ++j) dp[i][j] = 0;
+  ll ans = 0;
+  dp[0][0] = 1;
   
+  rep(i, 599) rep(j, 600) rep(k, a.at(i) + 1) {
+    if (j % 2 == 0) {
+      dp[i + 1][k + j / 2] = (dp[i + 1][k + j / 2] + dp[i][j]) % MOD;
+    }
+  }
+  for (int i = 1; i < 600; ++i) {
+    ans += dp[i][1];
+    ans %= MOD;
+  }
+  cout << ans << endl;
 }

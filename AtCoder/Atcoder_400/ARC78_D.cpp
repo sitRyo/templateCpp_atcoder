@@ -9,79 +9,78 @@
 #include <numeric>
 #include <cstdlib>
 #include <cmath>
-#include <queue>
 using namespace std;
 
 typedef long long ll;
 
-#define INF 10e6
+#define INF 10e17 // 4倍しても(4回足しても)long longを溢れない
 #define rep(i,n) for(int i=0; i<n; i++)
 #define rep_r(i,n,m) for(int i=m; i<n; i++)
 #define END cout << endl
 #define MOD 1000000007
 #define pb push_back
-// 昇順sort
 #define sorti(x) sort(x.begin(), x.end())
-// 降順sort
 #define sortd(x) sort(x.begin(), x.end(), std::greater<int>())
+#define debug(x) std::cerr << (x) << std::endl;
+#define roll(x) for (auto itr : x) { debug(itr); }
 
-typedef pair<int, int> P; // firstは最短距離, secondは頂点の番号
-typedef struct edge {int to, cost;} edge;
-vector<edge> g[100002];
-int d[100002];
-int V;
+template <class T> inline void chmax(T &ans, T t) { if (t > ans) ans = t;}
+template <class T> inline void chmin(T &ans, T t) { if (t < ans) ans = t;}
 
-void dijkstra(int s) {
-  priority_queue<P,vector<P>,greater<P> > que;
-  for (int i = 0; i <= V; ++i) d[i] = INF;
+struct edge { long long to, cost;};
+typedef pair<long long, long long> P_dij;
+
+/* params
+ * @s -> start, n -> 要素数, G -> グラフ, d -> 結果(参照渡し)
+*/
+void dijkstra(const long long s, const long long n,
+  vector< vector<edge> > const &G, vector<long long> & d){
+  d.resize(n);
+  for(int i=0; i<n; i++) d[i] = INF; 
+  priority_queue<P_dij, vector<P_dij>, greater<P_dij>> que;
   d[s] = 0;
-  que.push(P(0,s));
-
+  que.push(P_dij(0, s));
   while (!que.empty()) {
-    P p = que.top(); que.pop();
-    int v = p.second;
-
-    if (d[v] < p.first) continue;
-
-    for (int i = 0; i < g[v].size(); ++i) {
-      edge e = g[v][i];
-      if (d[e.to] > d[v] + e.cost) {
+    P_dij p = que.top();
+    que.pop();
+    long long v = p.second;
+    if(d[v] < p.first)continue;
+    for(int i=0;i<G[v].size(); i++){
+      edge e = G[v][i];
+      if(d[e.to] > d[v] + e.cost){
         d[e.to] = d[v] + e.cost;
-        que.push(P(d[e.to], e.to));
+        que.push(P_dij(d[e.to], e.to));
       }
     }
   }
 }
 
+/* END END END */
 int main() {
-  cin >> V;
-  rep(i,V-1) {
-    int a,b; scanf("%d %d", &a, &b);
-    g[a].pb({b,1});
-    g[b].pb({a,1});
-  }
-  int f_cost[V+1], s_cost[V+1];
-
-  dijkstra(1);
-  rep(i,V+1) {
-    f_cost[i] = d[i];
-  }
-
-  dijkstra(V);
-  rep(i,V+1) {
-    s_cost[i] = d[i];
+  int n;
+  cin >> n;
+  vector<vector<edge>> G(n+1);
+  
+  int a,b;
+  rep(i, n-1) {
+    cin >> a >> b;
+    --a, --b;
+    G[a].push_back({b, 1});
+    G[b].push_back({a, 1});
   }
 
-  int scnt = 0, fcnt = 0;
-  for (int i = 1; i <= V; ++i){
-    if (f_cost[i] <= s_cost[i]) {
-      fcnt++;
-    } else {
-      scnt++;
-    }
+  vector<ll> d1, d2;
+  dijkstra(0, n, G, d1);
+  dijkstra(n-1, n, G, d2);
+
+  int cntf = 0, cnts = 0;
+  for (int i = 0; i < n; ++i) {
+    if (d1[i] < d2[i]) cntf += 1;
+    else if (d1[i] == d2[i]) cntf += 1;
+    else cnts += 1;
   }
-  // cout << fcnt << " " << scnt << endl;
-  if (fcnt <= scnt) {
+
+  if (cnts > cntf or cnts == cntf) {
     cout << "Snuke" << endl;
   } else {
     cout << "Fennec" << endl;
